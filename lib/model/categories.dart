@@ -11,9 +11,10 @@ class Categories{
   String name;
   List<Product> products;
 
+  List<num> child_categories;
 
   Categories({
-    this.id, this.name, this.products});
+    this.id, this.name, this.products, this.child_categories});
 
   factory Categories.fromJson(Map<String, dynamic> json) => _$CategoriesFromJson(json);
 

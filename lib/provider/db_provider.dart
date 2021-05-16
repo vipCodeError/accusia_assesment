@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:accusia_assesment/model/dbmodel/categories.dart';
+import 'package:accusia_assesment/model/dbmodel/child_cat.dart';
 import 'package:accusia_assesment/model/dbmodel/products.dart';
+import 'package:accusia_assesment/model/dbmodel/tax.dart';
+import 'package:accusia_assesment/model/dbmodel/variants.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -42,24 +45,57 @@ class DBProvider {
          );
 
          await db.execute(
-           "CREATE TABLE tax(id INTEGER PRIMARY KEY, name TEXT, value TEXT, product_id INTEGER)",
+           "CREATE TABLE tax(name TEXT, value TEXT, product_id INTEGER)",
          );
 
          await db.execute(
-           "CREATE TABLE childcat(id INTEGER PRIMARY KEY, child_cat INTEGER, cat_id INTEGER)",
+           "CREATE TABLE childcat(child_cat INTEGER, cat_id INTEGER)",
          );
       },
 
       version: 1,
     );
 
+    return database;
+
   }
 
   // Insert employee on database
   createEmployee(Categories categories) async {
-    await deleteAllEmployees();
+
     final db = await database;
-    final res = await db.insert('Categories', categories.toJson());
+    final res = await db.insert('categories', categories.toJson());
+
+    return res;
+  }
+
+  createProduct(Products products) async {
+
+    final db = await database;
+    final res = await db.insert('products', products.toJson());
+
+    return res;
+  }
+
+  createVariants(Variants variants) async {
+
+    final db = await database;
+    final res = await db.insert('varaints', variants.toJson());
+
+    return res;
+  }
+
+  createTax(Tax tax) async {
+
+    final db = await database;
+    final res = await db.insert('tax', tax.toJson());
+
+    return res;
+  }
+
+  createChildCat(ChildCat childCat) async {
+    final db = await database;
+    final res = await db.insert('childcat', childCat.toJson());
 
     return res;
   }
@@ -67,8 +103,7 @@ class DBProvider {
   // Delete all employees
   Future<int> deleteAllEmployees() async {
     final db = await database;
-    final res = await db.rawDelete('DELETE FROM Categories');
-
+    final res = await db.rawDelete('DELETE FROM categories');
     return res;
   }
 

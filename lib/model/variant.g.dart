@@ -18,6 +18,6 @@ Variant _$VariantFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$VariantToJson(Variant instance) => <String, dynamic>{
       'id': instance.id,
       'color': instance.color,
-      'size"': instance.size,
+      'size': instance.size,
       'price': instance.price,
     };

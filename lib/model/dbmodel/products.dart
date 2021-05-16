@@ -10,7 +10,7 @@ class Products {
   int id;
   String name;
   String date;
-  String cat_Id;
+  int cat_Id;
 
   Products({
     this.id,
