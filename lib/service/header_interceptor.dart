@@ -14,7 +14,7 @@ class HeaderInterceptor implements RequestInterceptor {
   @override
   FutureOr<Request> onRequest(Request request) async {
     // 5
-    Request newRequest = request.copyWith(headers: {AUTH_HEADER: BEARER + V4_AUTH_HEADER});
+    Request newRequest = request;
     return newRequest;
   }
 

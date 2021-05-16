@@ -7,10 +7,10 @@ part 'product.g.dart';
 @JsonSerializable()
 class Product{
   @JsonKey(name: 'id')
-  String id;
+  int id;
   @JsonKey(name: 'name')
   String name;
-  @JsonKey(name: 'date_added"')
+  @JsonKey(name: 'date_added')
   String dateAdded;
 
   List<Variant> variants;

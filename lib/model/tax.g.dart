@@ -9,7 +9,7 @@ part of 'tax.dart';
 Tax _$TaxFromJson(Map<String, dynamic> json) {
   return Tax(
     name: json['name'] as String,
-    value: json['value'] as String,
+    value: json['value'].toString(),
   );
 }
 

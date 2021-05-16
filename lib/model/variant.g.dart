@@ -8,10 +8,10 @@ part of 'variant.dart';
 
 Variant _$VariantFromJson(Map<String, dynamic> json) {
   return Variant(
-    id: json['id'] as String,
+    id: json['id'] as int,
     color: json['color'] as String,
-    size: json['size"'] as String,
-    price: json['price'] as String,
+    size: json['size'].toString(),
+    price: json['price'] as int,
   );
 }
 

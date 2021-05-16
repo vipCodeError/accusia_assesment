@@ -6,10 +6,9 @@ part 'categories.g.dart';
 @JsonSerializable()
 class Categories{
   @JsonKey(name: 'id')
-  String id;
+  int id;
   @JsonKey(name: 'name')
   String name;
-
   List<Product> products;
 
 

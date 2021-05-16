@@ -14,7 +14,7 @@ abstract class StarkSpireService extends ChopperService{
   static StarkSpireService create(Converter converter) {
     final client = ChopperClient(
       baseUrl: 'https://stark-spire-93433.herokuapp.com',
-      interceptors: [HttpLoggingInterceptor()],
+      interceptors: [HeaderInterceptor(), HttpLoggingInterceptor()],
       converter: converter,
       errorConverter: JsonConverter(),
 

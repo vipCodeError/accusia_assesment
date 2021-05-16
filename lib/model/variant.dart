@@ -5,13 +5,13 @@ part 'variant.g.dart';
 @JsonSerializable()
 class Variant{
   @JsonKey(name: 'id')
-  String id;
+  int id;
   @JsonKey(name: 'color')
   String color;
-  @JsonKey(name: 'size"')
+  @JsonKey(name: 'size')
   String size;
   @JsonKey(name: 'price')
-  String price;
+  int price;
 
   Variant({
     this.id, this.color, this.size, this.price});
