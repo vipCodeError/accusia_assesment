@@ -1,23 +1,23 @@
 import 'dart:convert';
 
-List<RankingProduct> employeeFromJson(String str) =>
-    List<RankingProduct>.from(json.decode(str).map((x) => RankingProduct.fromJson(x)));
+List<RankingView> employeeFromJson(String str) =>
+    List<RankingView>.from(json.decode(str).map((x) => RankingView.fromJson(x)));
 
-String employeeToJson(List<RankingProduct> data) =>
+String employeeToJson(List<RankingView> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class RankingProduct {
+class RankingView {
   int id;
   int view_c;
   String name;
 
-  RankingProduct({
+  RankingView({
     this.id,
     this.name,
     this.view_c
   });
 
-  factory RankingProduct.fromJson(Map<String, dynamic> json) => RankingProduct(
+  factory RankingView.fromJson(Map<String, dynamic> json) => RankingView(
       id: json["id"],
       view_c: json["view_c"],
       name: json['name']

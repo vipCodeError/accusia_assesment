@@ -42,51 +42,156 @@ class _Rank extends State<Ranking> {
           ),
 
 
-        _getDataByRanking()
+          _getDataByRanking()
 
         ],
       ),
     );
   }
+
+  Widget _getDataByRanking(){
+    setState(() {
+      if(dropdownValue == "View"){
+        return _getViewData();
+      }else if (dropdownValue == "Share"){
+        return _getShareData();
+      }else if(dropdownValue == "Order"){
+        return _getOrderData();
+      }
+    });
+
+    if(dropdownValue == "View"){
+      return _getViewData();
+    }else if (dropdownValue == "Share"){
+      return _getShareData();
+    }else if(dropdownValue == "Order"){
+      return _getOrderData();
+    }
+
+  }
+
+  Widget _getViewData(){
+    return FutureBuilder(
+        future: DBProvider.db.getProductByViewData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: Text("Wait ..."));
+          } else {
+            return Expanded(
+              child: ListView.builder(itemCount: snapshot.data.length,itemBuilder: (context, index) {
+                return Container(
+                  margin: const EdgeInsets.all(8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(snapshot.data[index].name),
+                            )),
+                        Container(
+                            decoration: BoxDecoration(
+                                color: Colors.blue
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(snapshot.data[index].view_c.toString()),
+                            ))
+                      ],
+                    ),
+                  ),
+                );
+              }),
+            );
+          }
+        });
+  }
+
+  Widget _getShareData(){
+    return FutureBuilder(
+        future: DBProvider.db.getProductByShareData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: Text("Wait ..."));
+          } else {
+            return Expanded(
+              child: ListView.builder(itemCount: snapshot.data.length,itemBuilder: (context, index) {
+                return Container(
+                  margin: const EdgeInsets.all(8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(snapshot.data[index].name),
+                            )),
+                        Container(
+                            decoration: BoxDecoration(
+                                color: Colors.blue
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(snapshot.data[index].share_c.toString()),
+                            ))
+                      ],
+                    ),
+                  ),
+                );
+              }),
+            );
+          }
+        });
+  }
+
+  Widget _getOrderData(){
+    return FutureBuilder(
+        future: DBProvider.db.getProductByOrderData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: Text("Wait ..."));
+          } else {
+            return Expanded(
+              child: ListView.builder(itemCount: snapshot.data.length,itemBuilder: (context, index) {
+                return Container(
+                  margin: const EdgeInsets.all(8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(snapshot.data[index].name),
+                            )),
+                        Container(
+                            decoration: BoxDecoration(
+                                color: Colors.blue
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(snapshot.data[index].order_c.toString()),
+                            ))
+                      ],
+                    ),
+                  ),
+                );
+              }),
+            );
+          }
+        });
+  }
 }
 
-Widget _getDataByRanking(){
-  return FutureBuilder(
-      future: DBProvider.db.getProductByRanking(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (!snapshot.hasData) {
-           return Center(child: Text("Wait ..."));
-        } else {
-          return Expanded(
-            child: ListView.builder(itemCount: snapshot.data.length,itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.all(8),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(snapshot.data[index].name),
-                          )),
-                      Container(
-                          decoration: BoxDecoration(
-                              color: Colors.blue
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(snapshot.data[index].view_c.toString()),
-                          ))
-                    ],
-                  ),
-                ),
-              );
-            }),
-          );
-        }
-    });
-}
+

@@ -3,7 +3,9 @@ import 'package:accusia_assesment/model/dbmodel/categories.dart';
 import 'package:accusia_assesment/model/dbmodel/child_cat.dart';
 import 'package:accusia_assesment/model/dbmodel/ordercount.dart';
 import 'package:accusia_assesment/model/dbmodel/products.dart';
-import 'package:accusia_assesment/model/dbmodel/ranking.dart';
+import 'package:accusia_assesment/model/dbmodel/ranking_order.dart';
+import 'package:accusia_assesment/model/dbmodel/ranking_share.dart';
+import 'package:accusia_assesment/model/dbmodel/ranking_view.dart';
 import 'package:accusia_assesment/model/dbmodel/sharecount.dart';
 import 'package:accusia_assesment/model/dbmodel/tax.dart';
 import 'package:accusia_assesment/model/dbmodel/variants.dart';
@@ -192,12 +194,32 @@ class DBProvider {
     return list;
   }
 
-  Future<List<RankingProduct>> getProductByRanking() async {
+  Future<List<RankingView>> getProductByViewData() async {
     final db = await database;
     final res = await db.rawQuery("SELECT view_count.id,products.name, view_count.view_c FROM view_count INNER JOIN products ON view_count.id = products.id");
 
-    List<RankingProduct> list =
-    res.isNotEmpty ? res.map((c) => RankingProduct.fromJson(c)).toList() : [];
+    List<RankingView> list =
+    res.isNotEmpty ? res.map((c) => RankingView.fromJson(c)).toList() : [];
+
+    return list;
+  }
+
+  Future<List<RankingShare>> getProductByShareData() async {
+    final db = await database;
+    final res = await db.rawQuery("SELECT share_count.id,products.name, share_count.share_c FROM share_count INNER JOIN products ON share_count.id = products.id");
+
+    List<RankingShare> list =
+    res.isNotEmpty ? res.map((c) => RankingShare.fromJson(c)).toList() : [];
+
+    return list;
+  }
+
+  Future<List<RankingOrder>> getProductByOrderData() async {
+    final db = await database;
+    final res = await db.rawQuery("SELECT order_count.id,products.name, order_count.order_c FROM order_count INNER JOIN products ON order_count.id = products.id");
+
+    List<RankingOrder> list =
+    res.isNotEmpty ? res.map((c) => RankingOrder.fromJson(c)).toList() : [];
 
     return list;
   }
