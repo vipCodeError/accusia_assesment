@@ -12,9 +12,14 @@ EProduct _$EProductFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Categories.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    rankings: (json['rankings'] as List)
+        ?.map((e) =>
+    e == null ? null : RankingDataMostShared.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
 Map<String, dynamic> _$EProductToJson(EProduct instance) => <String, dynamic>{
       'categories': instance.categories,
+      'rankings' : instance.rankings
     };

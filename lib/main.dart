@@ -90,6 +90,11 @@ Widget _buildStreamBuilder(FetchData result) {
 
       }
 
+      //Rankings
+      for(int n=0; n<eProduct.categories.length; n++){
+
+      }
+
       return HomePage();
     },
   );
