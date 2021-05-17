@@ -196,7 +196,7 @@ class DBProvider {
 
   Future<List<RankingView>> getProductByViewData() async {
     final db = await database;
-    final res = await db.rawQuery("SELECT view_count.id,products.name, view_count.view_c FROM view_count INNER JOIN products ON view_count.id = products.id");
+    final res = await db.rawQuery("SELECT view_count.id,products.name, view_count.view_c FROM view_count INNER JOIN products ON view_count.id = products.id ORDER by view_c  ASC");
 
     List<RankingView> list =
     res.isNotEmpty ? res.map((c) => RankingView.fromJson(c)).toList() : [];
@@ -206,7 +206,7 @@ class DBProvider {
 
   Future<List<RankingShare>> getProductByShareData() async {
     final db = await database;
-    final res = await db.rawQuery("SELECT share_count.id,products.name, share_count.share_c FROM share_count INNER JOIN products ON share_count.id = products.id");
+    final res = await db.rawQuery("SELECT share_count.id,products.name, share_count.share_c FROM share_count INNER JOIN products ON share_count.id = products.id  ORDER by share_c  ASC");
 
     List<RankingShare> list =
     res.isNotEmpty ? res.map((c) => RankingShare.fromJson(c)).toList() : [];
@@ -216,7 +216,7 @@ class DBProvider {
 
   Future<List<RankingOrder>> getProductByOrderData() async {
     final db = await database;
-    final res = await db.rawQuery("SELECT order_count.id,products.name, order_count.order_c FROM order_count INNER JOIN products ON order_count.id = products.id");
+    final res = await db.rawQuery("SELECT order_count.id,products.name, order_count.order_c FROM order_count INNER JOIN products ON order_count.id = products.id  ORDER by order_c  ASC");
 
     List<RankingOrder> list =
     res.isNotEmpty ? res.map((c) => RankingOrder.fromJson(c)).toList() : [];
