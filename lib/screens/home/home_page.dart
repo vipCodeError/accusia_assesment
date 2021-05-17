@@ -2,7 +2,8 @@ import 'package:accusia_assesment/model/dbmodel/categories.dart';
 import 'package:accusia_assesment/provider/db_provider.dart';
 import 'package:flutter/material.dart';
 
-import 'components/body.dart';
+import 'components/rankings.dart';
+import 'components/show_product.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -28,13 +29,13 @@ class _Home extends State<HomePage> {
                   return ListTile(title: Text(snapshot.data[index].name), onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Body(id :snapshot.data[index].id.toString())),
+                      MaterialPageRoute(builder: (context) => ShowProduct(id :snapshot.data[index].id.toString())),
                     );
                    // Navigator.pop(context);
                   },);
                 }),
               ),
-              body: Body(),
+              body: Ranking(),
             );
           }
         });

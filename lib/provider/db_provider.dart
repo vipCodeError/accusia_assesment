@@ -3,6 +3,7 @@ import 'package:accusia_assesment/model/dbmodel/categories.dart';
 import 'package:accusia_assesment/model/dbmodel/child_cat.dart';
 import 'package:accusia_assesment/model/dbmodel/ordercount.dart';
 import 'package:accusia_assesment/model/dbmodel/products.dart';
+import 'package:accusia_assesment/model/dbmodel/ranking.dart';
 import 'package:accusia_assesment/model/dbmodel/sharecount.dart';
 import 'package:accusia_assesment/model/dbmodel/tax.dart';
 import 'package:accusia_assesment/model/dbmodel/variants.dart';
@@ -187,6 +188,16 @@ class DBProvider {
 
     List<Tax> list =
     res.isNotEmpty ? res.map((c) => Tax.fromJson(c)).toList() : [];
+
+    return list;
+  }
+
+  Future<List<RankingProduct>> getProductByRanking() async {
+    final db = await database;
+    final res = await db.rawQuery("SELECT view_count.id,products.name, view_count.view_c FROM view_count INNER JOIN products ON view_count.id = products.id");
+
+    List<RankingProduct> list =
+    res.isNotEmpty ? res.map((c) => RankingProduct.fromJson(c)).toList() : [];
 
     return list;
   }

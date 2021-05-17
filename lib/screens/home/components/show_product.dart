@@ -1,11 +1,11 @@
 import 'package:accusia_assesment/provider/db_provider.dart';
 import 'package:flutter/material.dart';
 
-class Body extends StatelessWidget{
+class ShowProduct extends StatelessWidget{
   String id;
 
 
-  Body({this.id});
+  ShowProduct({this.id});
 
   @override
   Widget build(BuildContext context) {
