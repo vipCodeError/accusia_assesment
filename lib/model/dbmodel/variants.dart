@@ -26,7 +26,7 @@ class Variants {
       color: json["color"],
       size: json["size"],
       price: json["price"],
-      product_id: json['product_id']
+      product_id: json["product_id"]
   );
 
   Map<String, dynamic> toJson() => {

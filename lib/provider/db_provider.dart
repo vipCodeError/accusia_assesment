@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:accusia_assesment/model/dbmodel/categories.dart';
 import 'package:accusia_assesment/model/dbmodel/child_cat.dart';
+import 'package:accusia_assesment/model/dbmodel/ordercount.dart';
 import 'package:accusia_assesment/model/dbmodel/products.dart';
+import 'package:accusia_assesment/model/dbmodel/sharecount.dart';
 import 'package:accusia_assesment/model/dbmodel/tax.dart';
 import 'package:accusia_assesment/model/dbmodel/variants.dart';
+import 'package:accusia_assesment/model/dbmodel/viewcount.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -41,7 +44,7 @@ class DBProvider {
          );
 
          await db.execute(
-           "CREATE TABLE varaints(id INTEGER PRIMARY KEY, color TEXT, size TEXT, price TEXT, product_id INTEGER)",
+           "CREATE TABLE varaints(id INTEGER PRIMARY KEY, color TEXT, size TEXT, price INTEGER, product_id INTEGER)",
          );
 
          await db.execute(
@@ -50,6 +53,18 @@ class DBProvider {
 
          await db.execute(
            "CREATE TABLE childcat(child_cat INTEGER, cat_id INTEGER)",
+         );
+
+         await db.execute(
+           "CREATE TABLE share_count(id INTEGER PRIMARY KEY, share_c INTEGER)",
+         );
+
+         await db.execute(
+           "CREATE TABLE order_count(id INTEGER PRIMARY KEY, order_c INTEGER)",
+         );
+
+         await db.execute(
+           "CREATE TABLE view_count(id INTEGER PRIMARY KEY, view_c INTEGER)",
          );
       },
 
@@ -100,6 +115,35 @@ class DBProvider {
     return res;
   }
 
+  createViewCount(ViewCount viewCount) async {
+    final db = await database;
+    final res = await db.insert('view_count', viewCount.toJson());
+
+    return res;
+  }
+
+  createOrderCount(OrderCount orderCount) async {
+    final db = await database;
+    final res = await db.insert('order_count', orderCount.toJson());
+
+    return res;
+  }
+
+  createShareCount(ShareCount shareCount) async {
+    final db = await database;
+    final res = await db.insert('share_count', shareCount.toJson());
+
+    return res;
+  }
+
+  Future  getCatCount() async {
+    final db = await database;
+
+    final res  = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM categories'));
+
+    return res;
+  }
+
   // Delete all employees
   Future<int> deleteAllEmployees() async {
     final db = await database;
@@ -107,13 +151,44 @@ class DBProvider {
     return res;
   }
 
-  Future<List<Categories>> getAllEmployees() async {
+  Future<List<Categories>> getAllCategories() async {
     final db = await database;
-    final res = await db.rawQuery("SELECT * FROM Categories");
+    final res = await db.rawQuery("SELECT * FROM categories");
 
     List<Categories> list =
     res.isNotEmpty ? res.map((c) => Categories.fromJson(c)).toList() : [];
 
     return list;
   }
+
+  Future<List<Products>> getProductByCatId(String id) async {
+    final db = await database;
+    final res = await db.rawQuery("SELECT * FROM products where cat_id = "+ id.toString());
+
+    List<Products> list =
+    res.isNotEmpty ? res.map((c) => Products.fromJson(c)).toList() : [];
+
+    return list;
+  }
+
+  Future<List<Variants>> getVaraintByProductId(String id) async {
+    final db = await database;
+    final res = await db.rawQuery("SELECT * FROM varaints where product_id = "+ id.toString());
+
+    List<Variants> list =
+    res.isNotEmpty ? res.map((c) => Variants.fromJson(c)).toList() : [];
+
+    return list;
+  }
+
+  Future<List<Tax>> getTaxByProductId(String id) async {
+    final db = await database;
+    final res = await db.rawQuery("SELECT * FROM tax where product_id = "+ id.toString());
+
+    List<Tax> list =
+    res.isNotEmpty ? res.map((c) => Tax.fromJson(c)).toList() : [];
+
+    return list;
+  }
+
 }
